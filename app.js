@@ -174,13 +174,10 @@ function render() {
             <h2>${escapeHTML(project.name)}</h2>
             <p>${project.columns.length} Spalten · ${project.columns.reduce((sum, c) => sum + c.tasks.length, 0)} Aufgaben</p>
           </div>
-          <div class="topbar-actions">
-            <form class="quick-row" id="columnForm">
-              <input id="columnTitle" placeholder="Neue Spalte" autocomplete="off" />
-              <button type="submit">Spalte +</button>
-            </form>
-            <button type="button" class="danger" data-delete-current-project="true" ${state.projects.length <= 1 ? "disabled title='Mindestens ein Projekt muss bleiben'" : ""}>Projekt löschen</button>
-          </div>
+          <form class="quick-row" id="columnForm">
+            <input id="columnTitle" placeholder="Neue Spalte" autocomplete="off" />
+            <button type="submit">Spalte +</button>
+          </form>
         </div>
 
         <div class="board">
@@ -469,9 +466,6 @@ function bindEvents() {
   document.querySelector("#importBtn")?.addEventListener("click", () => document.querySelector("#importInput").click());
   document.querySelector("#importInput")?.addEventListener("change", importData);
   document.querySelector("#deleteProjectBtn")?.addEventListener("click", deleteCurrentProject);
-  document.querySelectorAll("[data-delete-current-project]").forEach(btn => {
-    btn.addEventListener("click", deleteCurrentProject);
-  });
 }
 
 function bindDetailEvents(taskId) {
