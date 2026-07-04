@@ -1,42 +1,28 @@
-# Meister Mini PWA v5
+# Meister Mini PWA v6
 
-Änderungen in v5:
+Änderungen in v6:
 
-- Projekte können jetzt gelöscht werden.
-- In der Seitenleiste gibt es den Button „Aktuelles Projekt löschen“.
-- Wenn das Projekt Aufgaben enthält, kommt vorher eine Sicherheitsabfrage.
-- Beim Löschen eines Projekts werden alle Spalten und Aufgaben darin gelöscht.
+- Der Button „Projekt löschen“ ist jetzt zusätzlich oben rechts neben „Spalte +“ sichtbar.
+- Der alte Button unten in der Seitenleiste bleibt ebenfalls erhalten.
+- Projekt löschen fragt vorher nach, wenn Aufgaben enthalten sind.
 - Das letzte verbleibende Projekt kann nicht gelöscht werden.
-- Spalten löschen aus v4 bleibt enthalten.
-- Schließen-Button-Fix und Drag & Drop bleiben enthalten.
-
-## Lokal starten
-
-```bash
-cd ~/Downloads/meister-mini-pwa-v5
-python3 -m http.server 8080
-```
-
-Dann öffnen:
-
-```text
-http://localhost:8080
-```
+- Cache-Busting für `app.js?v=6` und `styles.css?v=6`, damit GitHub Pages/Safari sicherer die neue Version lädt.
+- Spalten löschen, Drag & Drop und Schließen-Fix bleiben enthalten.
 
 ## GitHub Pages Update
 
-Im Repository diese Dateien durch die neuen aus v5 ersetzen:
+Am besten diese Dateien hochladen/ersetzen:
 
 - index.html
 - app.js
 - styles.css
 - sw.js
-- manifest.webmanifest
-- icons/
+- README.md
 
-Danach Commit changes klicken.
+Danach Commit changes klicken und warten, bis GitHub Pages grün ist.
 
 Falls Safari noch die alte Version zeigt:
 
-- `Cmd + Option + R`
-- oder Website-Daten für die Seite löschen
+- Link mit `?v=6` öffnen, z. B. `https://starkeinplanner.github.io/taskmini/?v=6`
+- oder `Cmd + Option + R`
+- oder Website-Daten für `github.io` löschen

@@ -395,3 +395,31 @@ input:focus, textarea:focus {
 .sidebar-actions .danger {
   width: 100%;
 }
+
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.topbar-actions .quick-row {
+  min-width: min(420px, 100%);
+}
+
+@media (max-width: 760px) {
+  .topbar-actions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .topbar-actions .quick-row {
+    width: 100%;
+  }
+
+  .topbar-actions .danger {
+    width: 100%;
+  }
+}
