@@ -1,18 +1,19 @@
-# Meister Mini PWA v3
+# Meister Mini PWA v5
 
-Änderungen in v3:
+Änderungen in v5:
 
-- Schließen-Button wurde robust behoben.
-- Der Schließen-Button nutzt jetzt `data-close-detail` und einen globalen Capture-Click-Handler.
-- Klick auf den grauen Hintergrund schließt die Aufgabe ebenfalls.
-- Escape-Taste schließt die Aufgabe ebenfalls.
-- Buttons haben jetzt explizit `type="button"`, damit Safari sie nicht ungewollt als Formular-Submit behandelt.
-- Drag & Drop zwischen Spalten bleibt enthalten.
+- Projekte können jetzt gelöscht werden.
+- In der Seitenleiste gibt es den Button „Aktuelles Projekt löschen“.
+- Wenn das Projekt Aufgaben enthält, kommt vorher eine Sicherheitsabfrage.
+- Beim Löschen eines Projekts werden alle Spalten und Aufgaben darin gelöscht.
+- Das letzte verbleibende Projekt kann nicht gelöscht werden.
+- Spalten löschen aus v4 bleibt enthalten.
+- Schließen-Button-Fix und Drag & Drop bleiben enthalten.
 
 ## Lokal starten
 
 ```bash
-cd ~/Downloads/meister-mini-pwa-v3
+cd ~/Downloads/meister-mini-pwa-v5
 python3 -m http.server 8080
 ```
 
@@ -22,14 +23,20 @@ Dann öffnen:
 http://localhost:8080
 ```
 
-## Wichtig bei Safari / GitHub Pages
+## GitHub Pages Update
 
-Wenn noch die alte Version kommt, liegt es am Cache/Service Worker.
+Im Repository diese Dateien durch die neuen aus v5 ersetzen:
 
-Lokal:
-- Safari neu laden mit `Cmd + Option + R`
-- Oder Website-Daten für `localhost` löschen
+- index.html
+- app.js
+- styles.css
+- sw.js
+- manifest.webmanifest
+- icons/
 
-GitHub Pages:
-- `sw.js`, `app.js`, `styles.css` wirklich ersetzen
-- danach Website-Daten für die Seite löschen
+Danach Commit changes klicken.
+
+Falls Safari noch die alte Version zeigt:
+
+- `Cmd + Option + R`
+- oder Website-Daten für die Seite löschen

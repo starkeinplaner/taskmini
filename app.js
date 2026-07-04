@@ -119,6 +119,10 @@ function checklistProgress(task) {
   return { total, done };
 }
 
+function countProjectTasks(project) {
+  return project.columns.reduce((sum, column) => sum + column.tasks.length, 0);
+}
+
 function render() {
   document.querySelectorAll(".detail-backdrop").forEach(panel => panel.remove());
 
@@ -159,6 +163,7 @@ function render() {
             <input class="file-input" id="importInput" type="file" accept="application/json" />
             <button type="button" class="secondary" id="importBtn">Backup importieren</button>
           </label>
+          <button type="button" class="danger" id="deleteProjectBtn" ${state.projects.length <= 1 ? "disabled title='Mindestens ein Projekt muss bleiben'" : ""}>Aktuelles Projekt löschen</button>
           <p class="small-note">Speicherung aktuell lokal im Browser. Exportiere ab und zu ein Backup.</p>
         </div>
       </aside>
@@ -209,7 +214,7 @@ function renderColumn(column, columnIndex) {
       <div class="move-row" style="margin-top: 10px;">
         <button type="button" class="ghost" data-column-left="${column.id}" ${columnIndex === 0 ? "disabled" : ""}>←</button>
         <button type="button" class="ghost" data-column-right="${column.id}" ${columnIndex === currentProject().columns.length - 1 ? "disabled" : ""}>→</button>
-        <button type="button" class="ghost danger" data-delete-column="${column.id}" ${column.tasks.length ? "disabled title='Spalte erst leeren'" : ""}>Löschen</button>
+        <button type="button" class="ghost danger" data-delete-column="${column.id}" ${currentProject().columns.length <= 1 ? "disabled title='Mindestens eine Spalte muss bleiben'" : ""}>Löschen</button>
       </div>
     </section>
   `;
@@ -436,8 +441,22 @@ function bindEvents() {
     btn.addEventListener("click", () => {
       const project = currentProject();
       const column = project.columns.find(c => c.id === btn.dataset.deleteColumn);
-      if (!column || column.tasks.length) return;
+      if (!column) return;
+
+      if (project.columns.length <= 1) {
+        alert("Mindestens eine Spalte muss bleiben.");
+        return;
+      }
+
+      const taskCount = column.tasks.length;
+      const message = taskCount > 0
+        ? `Die Spalte „${column.title}“ enthält ${taskCount} Aufgabe${taskCount === 1 ? "" : "n"}. Wenn du sie löschst, werden diese Aufgaben ebenfalls gelöscht. Wirklich löschen?`
+        : `Spalte „${column.title}“ wirklich löschen?`;
+
+      if (!confirm(message)) return;
+
       project.columns = project.columns.filter(c => c.id !== column.id);
+      selectedTaskRef = null;
       saveState();
       render();
     });
@@ -446,6 +465,7 @@ function bindEvents() {
   document.querySelector("#exportBtn")?.addEventListener("click", exportData);
   document.querySelector("#importBtn")?.addEventListener("click", () => document.querySelector("#importInput").click());
   document.querySelector("#importInput")?.addEventListener("change", importData);
+  document.querySelector("#deleteProjectBtn")?.addEventListener("click", deleteCurrentProject);
 }
 
 function bindDetailEvents(taskId) {
@@ -529,6 +549,29 @@ function bindDetailEvents(taskId) {
     saveState();
     render();
   });
+}
+
+function deleteCurrentProject() {
+  const project = currentProject();
+  if (!project) return;
+
+  if (state.projects.length <= 1) {
+    alert("Mindestens ein Projekt muss bleiben.");
+    return;
+  }
+
+  const taskCount = countProjectTasks(project);
+  const message = taskCount > 0
+    ? `Das Projekt „${project.name}“ enthält ${taskCount} Aufgabe${taskCount === 1 ? "" : "n"}. Wenn du es löschst, werden alle Spalten und Aufgaben darin gelöscht. Wirklich löschen?`
+    : `Projekt „${project.name}“ wirklich löschen?`;
+
+  if (!confirm(message)) return;
+
+  state.projects = state.projects.filter(p => p.id !== project.id);
+  state.currentProjectId = state.projects[0]?.id ?? null;
+  selectedTaskRef = null;
+  saveState();
+  render();
 }
 
 function moveTaskToColumn(taskId, targetColumnId) {

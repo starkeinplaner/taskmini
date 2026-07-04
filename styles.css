@@ -390,3 +390,8 @@ input:focus, textarea:focus {
 
   .detail-panel { width: 100%; }
 }
+
+
+.sidebar-actions .danger {
+  width: 100%;
+}
