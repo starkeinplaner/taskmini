@@ -1,9 +1,9 @@
-const CACHE_NAME = "meister-mini-cache-v7";
+const CACHE_NAME = "meister-mini-cache-v8";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
-  "./styles.css?v=7",
-  "./app.js?v=7",
+  "./styles.css?v=8",
+  "./app.js?v=8",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png"

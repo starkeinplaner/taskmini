@@ -1,15 +1,19 @@
-# Meister Mini PWA v7
+# Meister Mini PWA v8
 
-Änderungen in v7:
+Änderungen in v8:
 
-- Der Button „Projekt löschen“ wurde oben neben „Neue Spalte / Spalte +“ entfernt.
-- Projekt löschen bleibt in der linken Projekt-Seitenleiste erhalten.
-- Cache-Busting auf `app.js?v=7` und `styles.css?v=7`.
-- Projekt löschen aus v5, Spalten löschen aus v4, Drag & Drop und Schließen-Fix bleiben enthalten.
+- Projekte können jetzt umbenannt werden.
+- In der linken Seitenleiste gibt es den Button „Projekt umbenennen“.
+- Der neue Name wird per Eingabefenster abgefragt.
+- Leere Projektnamen werden verhindert.
+- Projekt löschen bleibt in der linken Seitenleiste.
+- Projekt löschen oben neben „Neue Spalte“ bleibt entfernt.
+- Cache-Busting auf `app.js?v=8` und `styles.css?v=8`.
+- Spalten löschen, Projekte löschen, Drag & Drop und Schließen-Fix bleiben enthalten.
 
 ## GitHub Pages Update
 
-Diese Dateien aus v7 ersetzen/hochladen:
+Diese Dateien aus v8 ersetzen/hochladen:
 
 - index.html
 - app.js
@@ -22,5 +26,5 @@ Danach Commit changes klicken und warten, bis GitHub Pages grün ist.
 Danach öffnen:
 
 ```text
-https://starkeinplanner.github.io/taskmini/?v=7
+https://starkeinplanner.github.io/taskmini/?v=8
 ```

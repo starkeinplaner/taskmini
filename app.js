@@ -163,6 +163,7 @@ function render() {
             <input class="file-input" id="importInput" type="file" accept="application/json" />
             <button type="button" class="secondary" id="importBtn">Backup importieren</button>
           </label>
+          <button type="button" class="secondary" id="renameProjectBtn">Projekt umbenennen</button>
           <button type="button" class="danger" id="deleteProjectBtn" ${state.projects.length <= 1 ? "disabled title='Mindestens ein Projekt muss bleiben'" : ""}>Aktuelles Projekt löschen</button>
           <p class="small-note">Speicherung aktuell lokal im Browser. Exportiere ab und zu ein Backup.</p>
         </div>
@@ -465,6 +466,7 @@ function bindEvents() {
   document.querySelector("#exportBtn")?.addEventListener("click", exportData);
   document.querySelector("#importBtn")?.addEventListener("click", () => document.querySelector("#importInput").click());
   document.querySelector("#importInput")?.addEventListener("change", importData);
+  document.querySelector("#renameProjectBtn")?.addEventListener("click", renameCurrentProject);
   document.querySelector("#deleteProjectBtn")?.addEventListener("click", deleteCurrentProject);
 }
 
@@ -549,6 +551,24 @@ function bindDetailEvents(taskId) {
     saveState();
     render();
   });
+}
+
+function renameCurrentProject() {
+  const project = currentProject();
+  if (!project) return;
+
+  const newName = prompt("Neuer Projektname:", project.name);
+  if (newName === null) return;
+
+  const cleanedName = newName.trim();
+  if (!cleanedName) {
+    alert("Der Projektname darf nicht leer sein.");
+    return;
+  }
+
+  project.name = cleanedName;
+  saveState();
+  render();
 }
 
 function deleteCurrentProject() {
